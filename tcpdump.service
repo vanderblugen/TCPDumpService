@@ -1,0 +1,16 @@
+[Unit]
+Description=Tcpdump service
+After=network.target
+
+[Service]
+ExecStart=/usr/sbin/tcpdump -v -tttt -i eth0 -w /home/noiseless/capture/networktrace -W 100 -C 1000
+WorkingDirectory=/home/pi/Captures
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+RestartSec=30
+TimeoutSec=5
+ExecStop=/bin/kill -s QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
