@@ -64,9 +64,9 @@ sudo apt-get install tcpdump
 ```
 
 ### Setup the tcpdump service
-Create the <a href="tcpdump.service">tcpdump.service</a> file
+Create the <a href="tcpdumpsvc.service">tcpdumpsvc.service</a> file
 ```shell
-sudo nano /etc/systemd/system/tcpdump.service
+sudo nano /etc/systemd/system/tcpdumpsvc.service
 ```
 
 Paste the service file in there.  Make sure that the location is updated where you want the files to go.
@@ -88,10 +88,20 @@ ExecStop=/bin/kill -s QUIT $MAINPID
 [Install]
 WantedBy=multi-user.target
 ```
+To Save `Ctrl+X and Y and <Enter>`
+
 In that Service file:
 * `-i eth1` is the interface that it's pulling from
 * `-w /location/file` is the file that it's reading into
 * `-W 100` is the number of files
 * `-C 1000` is the size of the files in megabytes rounded to 1,000,000
+* More informaton on tcpdump can be found https://www.tcpdump.org/manpages/tcpdump.1.html
 
-Learning more about tcpdump can be found https://www.tcpdump.org/manpages/tcpdump.1.html
+To Save `Ctrl+X and Y and <Enter>`
+
+Like before, reload the services, enable the newly created service past reboot, and start it
+```shell
+sudo systemctl daemon-reload
+sudo systemctl tcpdumpsvc enable
+sudo systemctl tcpdumpsvc start
+```
