@@ -69,7 +69,7 @@ Create the <a href="tcpdumpsvc.service">tcpdumpsvc.service</a> file
 sudo nano /etc/systemd/system/tcpdumpsvc.service
 ```
 
-Paste the service file in there.  Make sure that the location is updated where you want the files to go.
+Paste the service file in nano.  Make sure that the parameters of ExecStart look correct.
 ```shell
 [Unit]
 Description=Tcpdump service
@@ -105,3 +105,10 @@ sudo systemctl daemon-reload
 sudo systemctl enable tcpdumpsvc
 sudo systemctl start tcpdumpsvc
 ```
+
+Verify the service is running
+```shell
+sudo service tcpdump status
+```
+
+All Set
