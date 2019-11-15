@@ -1,0 +1,13 @@
+# cat /etc/systemd/system/promisc.service 
+[Unit]
+Description=Bring up an interface in promiscuous mode during boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ip link set dev eth1 promisc on
+TimeoutStartSec=0
+RemainAfterExit=yes
+
+[Install]
+WantedBy=default.target
