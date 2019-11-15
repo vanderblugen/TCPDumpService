@@ -51,7 +51,7 @@ To Save `Ctrl+X and Y and <Enter>`
 Reload the services, enable the newly created service past reboot, and starts it
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl promisc enable
+sudo systemctl enable promisc
 sudo systemctl promisc start
 ```
 
@@ -102,6 +102,6 @@ To Save `Ctrl+X and Y and <Enter>`
 Like before, reload the services, enable the newly created service past reboot, and start it
 ```shell
 sudo systemctl daemon-reload
-sudo systemctl tcpdumpsvc enable
+sudo systemctl enable tcpdumpsvc
 sudo systemctl tcpdumpsvc start
 ```
