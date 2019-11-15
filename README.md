@@ -48,7 +48,7 @@ WantedBy=default.target
 ```
 To Save `Ctrl+X and Y and <Enter>`
 
-This reloads the services, enables the newly created service past reboot, and starts it
+Reload the services, enable the newly created service past reboot, and starts it
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl promisc enable
