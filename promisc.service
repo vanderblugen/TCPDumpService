@@ -1,4 +1,3 @@
-# cat /etc/systemd/system/promisc.service 
 [Unit]
 Description=Bring up an interface in promiscuous mode during boot
 After=network.target
