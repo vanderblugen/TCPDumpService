@@ -52,7 +52,7 @@ Reload the services, enable the newly created service past reboot, and starts it
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl enable promisc
-sudo systemctl promisc start
+sudo systemctl start promisc
 ```
 
 
@@ -103,5 +103,5 @@ Like before, reload the services, enable the newly created service past reboot, 
 ```shell
 sudo systemctl daemon-reload
 sudo systemctl enable tcpdumpsvc
-sudo systemctl tcpdumpsvc start
+sudo systemctl start tcpdumpsvc
 ```
