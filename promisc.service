@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/ip link set eth1 promisc on
+ExecStart=/bin/ip link set eth1 promisc on
 TimeoutStartSec=0
 RemainAfterExit=yes
 
