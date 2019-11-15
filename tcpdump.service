@@ -3,8 +3,8 @@ Description=Tcpdump service
 After=network.target
 
 [Service]
-ExecStart=/usr/sbin/tcpdump -v -tttt -i eth0 -w /home/username/location/networktrace -W 100 -C 1000
-WorkingDirectory=/home/username/location
+ExecStart=/usr/sbin/tcpdump -v -tttt -i eth1 -w /location/file -W 100 -C 1000
+WorkingDirectory=/location
 StandardOutput=inherit
 StandardError=inherit
 Restart=always
