@@ -89,9 +89,9 @@ ExecStop=/bin/kill -s QUIT $MAINPID
 WantedBy=multi-user.target
 ```
 In that Service file:
-* -i eth1 is the interface that it's pulling from
-* -w /location/file is the file that it's reading into
-* -W is the number of files
-* -C is the size of the files in megabytes rounded to 1,000,000
+* `-i eth1` is the interface that it's pulling from
+* `-w /location/file` is the file that it's reading into
+* `-W 100` is the number of files
+* `-C 1000` is the size of the files in megabytes rounded to 1,000,000
 
 Learning more about tcpdump can be found https://www.tcpdump.org/manpages/tcpdump.1.html
