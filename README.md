@@ -61,7 +61,7 @@ sudo systemctl start promisc
 ### Install tcpdump
 If `tcpdump` isn't already installed, it needs to be
 ```shell
-sudo apt-get install tcpdump
+sudo apt-get install tcpdump -y
 ```
 
 ### Setup the tcpdump service
