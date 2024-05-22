@@ -77,13 +77,14 @@ Description=Tcpdump service
 After=network.target
 
 [Service]
-ExecStart=/usr/sbin/tcpdump -v -tttt -i eth1 -w /location/file -W 100 -C 1000
+Type=simple
+User=root
+ExecStart=/usr/sbin/tcpdump -v -tttt -i eth1 -G 1024 -C 1000 -w "/location/file%%03d.pcap"
 WorkingDirectory=/location
-StandardOutput=inherit
-StandardError=inherit
-Restart=always
+Restart=on-failure
 RestartSec=30
-TimeoutSec=5
+TimeoutStartSec=60
+TimeoutStopSec=30
 ExecStop=/bin/kill -s QUIT $MAINPID
 
 [Install]
@@ -92,9 +93,10 @@ WantedBy=multi-user.target
 To Save `Ctrl+X and Y and <Enter>`
 
 In that Service file:
+* `-v` is verbose output
+* `-tttt` is print a timestamp, as hours, minutes, seconds, and fractions of a second since midnight, preceded by the date, on each dump line.
 * `-i eth1` is the interface that it's pulling from
 * `-w /location/file` is the file that it's reading into
-* `-W 100` is the number of files
 * `-C 1000` is the size of the files in megabytes rounded to 1,000,000
 * More informaton on tcpdump can be found https://www.tcpdump.org/manpages/tcpdump.1.html
 
