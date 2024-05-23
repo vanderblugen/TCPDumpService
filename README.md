@@ -44,7 +44,7 @@ ExecStart=/bin/ip link set eth1 promisc on
 TimeoutStartSec=0
 RemainAfterExit=yes
 
-[Install]' >> /etc/systemd/system/promisc.service
+[Install]
 WantedBy=default.target
 ```
 To Save `Ctrl+X and Y and <Enter>`
