@@ -79,8 +79,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-ExecStart=/usr/sbin/tcpdump -v -tttt -i eth1 -G 1024 -C 1000 -w "/location/file%%03d.pcap"
-WorkingDirectory=/location
+ExecStart=/etc/capture_traffic.sh
+WorkingDirectory=/file/store/location
 Restart=on-failure
 RestartSec=30
 TimeoutStartSec=60
