@@ -37,7 +37,7 @@ Paste the sh file in there
 #!/bin/bash
 
 # Directory to store capture files
-capture_dir="/media/Captures"
+capture_dir="/capture/file/location"
 
 # File to store the last used decimal number
 counter_file="/etc/capture_counter.txt"
