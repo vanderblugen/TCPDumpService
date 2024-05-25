@@ -37,60 +37,38 @@ Paste the sh file in there
 #!/bin/bash
 
 # Directory to store capture files
-capture_dir="/capture/file/location"
-
-# File to store the last used decimal number
-counter_file="/etc/capture_counter.txt"
+capture_dir="/file/location"
 
 # Maximum number of files to keep
-max_files=100
+max_files=99
 
-# Create the counter file if it doesn't exist
-touch "$counter_file"
-
-# Change permissions of the counter file to 700
-chmod 700 "$counter_file"
-
-# Function to increment decimal number
-increment_num() {
-    printf "%04d" $((10#$1 + 1))
-}
-
-# Function to get the last used decimal number
-get_last_num() {
-    if [ -f "$counter_file" ]; then
-        cat "$counter_file"
-    else
-        echo "0"
-    fi
-}
-
-# Function to remove excess files if more than max_files exist
+# Function to remove excess files if the count exceeds max_files
 remove_excess_files() {
-    find "$capture_dir" -type f -name "capture_*.pcap" -print0 | sort -zrn | tail -zn +"$max_files" | xargs -0 rm
+  excess_files=$(ls "$capture_dir"/*.pcap 2>/dev/null | wc -l)
+  if [ $excess_files -gt $max_files ]; then
+    echo "Removing $((excess_files - max_files)) excess files..."
+    ls -t "$capture_dir"/*.pcap | tail -n $((excess_files - max_files)) | xargs rm -f
+  fi
 }
 
 # Function to start tcpdump
 start_tcpdump() {
+  while true; do
+    # Run verification to remove excess files if needed
     remove_excess_files
-    num=$(get_last_num)
-    while true; do
-        capture_file="$capture_dir/capture_$num.pcap"
-        /usr/sbin/tcpdump -tttt -i eth1 -C 1000 -w "$capture_file"
-        num=$(increment_num $num)
-        echo "$num" > "$counter_file"
-    done
+    # Generate random filename
+    next_file_name="capture_$(openssl rand -hex 4).pcap"
+    echo "Starting tcpdump. Output file: $capture_dir/$next_file_name"
+    /usr/sbin/tcpdump -tttt -i eth1 -C 1000 -w "$capture_dir/$next_file_name" &
+    wait $!
+  done
 }
 
 # Function to handle cleanup
 cleanup() {
-    echo "Cleaning up..."
-    # Increment the counter before saving to file
-    num=$(increment_num $num)
-    echo "$num" > "$counter_file"
-    # Kill the tcpdump process
-    pkill tcpdump
-    exit 0
+  echo "Cleaning up..."
+  pkill -P $$ tcpdump && echo "Successfully killed tcpdump process" || echo "Error: Unable to kill tcpdump process"
+  exit 0
 }
 
 # Trap Ctrl+C signal
@@ -169,16 +147,6 @@ ExecStop=/bin/kill -s QUIT $MAINPID
 [Install]
 WantedBy=multi-user.target
 ```
-To Save `Ctrl+X and Y and <Enter>`
-
-In that Service file:
-* `-v` is verbose output
-* `-tttt` is print a timestamp, as hours, minutes, seconds, and fractions of a second since midnight, preceded by the date, on each dump line.
-* `-i eth1` is the interface that it's pulling from
-* `-w /location/file` is the file that it's reading into
-* `-C 1000` is the size of the files in megabytes rounded to 1,000,000
-* More informaton on tcpdump can be found https://www.tcpdump.org/manpages/tcpdump.1.html
-
 To Save `Ctrl+X and Y and <Enter>`
 
 Like before, reload the services, enable the newly created service past reboot, and start it
