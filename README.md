@@ -3,7 +3,7 @@ This is a basic how to for setting up tcpdump to passively monitor network traff
 In this instance, it is implemented thru a Raspberry Pi using Raspbian Buster Version 10 on a dedicated ethernet interface of eth1.
 
 This service creates pcap files named capture_RRRRRRRR.pcap, where R is a lowercase alphanumeric character, in the /file/location folder.
-Files are 1GB of maximum size and 100 total pcap files are kept.  The oldest will start to be deleted once that number is exceeded.
+Files are 1GB of maximum size and 100 total pcap files are kept.  The oldest files will start to be deleted once that number is exceeded.
 
 ## Configure ethernet connection
 ### Determine the ethernet adapter interface that is going to be used
