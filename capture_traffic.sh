@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directory to store capture files
-capture_dir="/media/Captures"
+capture_dir="/file/location"
 
 # Maximum number of files to keep
 max_files=99
